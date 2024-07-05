@@ -43,6 +43,7 @@ brew "yarn"
 brew "z"
 brew "zlib"
 brew "zsh"
+brew "ollama"
 cask "brave-browser"
 cask "cyberduck", args: { appdir: "/Applications" }
 cask "expressvpn"
