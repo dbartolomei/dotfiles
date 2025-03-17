@@ -1,10 +1,11 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "humansignal/tap"
+brew "xz"
+brew "openssl@3"
 brew "grpc"
 brew "python@3.12"
-brew "apache-arrow"
+brew "asitop"
 brew "awscli"
 brew "bat"
 brew "gettext"
@@ -20,17 +21,17 @@ brew "libmicrohttpd"
 brew "ffmpeg"
 brew "fzf"
 brew "gnupg"
-brew "libpq"
+brew "gpgme"
+brew "libpq", link: true
 brew "poppler"
-brew "gdal"
 brew "git"
-brew "htop"
-brew "hub"
+brew "huggingface-cli"
+brew "llama.cpp"
+brew "mactop"
 brew "nmap"
-brew "btop"
 brew "node"
+brew "pandoc"
 brew "pipx"
-brew "postgresql@16"
 brew "pre-commit"
 brew "pyenv"
 brew "pyenv-virtualenv"
@@ -41,38 +42,32 @@ brew "yarn"
 brew "z"
 brew "zlib"
 brew "zsh"
-brew "ollama"
-cask "brave-browser"
+cask "brave-browser", args: { appdir: "/Applications" }
 cask "cyberduck", args: { appdir: "/Applications" }
-cask "expressvpn"
-cask "iterm2", args: { appdir: "/Applications" }
-cask "menubar-stats", args: { appdir: "/Applications" }
+cask "expressvpn", args: { appdir: "/Applications" }
+cask "lunar", args: { appdir: "/Applications" }
+cask "medis", args: { appdir: "/Applications" }
 cask "ngrok", args: { appdir: "/Applications" }
 cask "notion", args: { appdir: "/Applications" }
-cask "orbstack"
+cask "obsidian", args: { appdir: "/Applications" }
+cask "orbstack", args: { appdir: "/Applications" }
 cask "pandora", args: { appdir: "/Applications" }
-cask "postico", args: { appdir: "/Applications" }
-cask "postman"
-cask "session-manager-plugin"
-cask "sketch", args: { appdir: "/Applications" }
+cask "postman", args: { appdir: "/Applications" }
+cask "iterm2", args: { appdir: "/Applications" }
 cask "slack", args: { appdir: "/Applications" }
 cask "spotify", args: { appdir: "/Applications" }
-cask "sublime-text"
 cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "zoom", args: { appdir: "/Applications" }
 vscode "bastienboutonnet.vscode-dbt"
-vscode "batisteo.vscode-django"
 vscode "bradlc.vscode-tailwindcss"
 vscode "csstools.postcss"
 vscode "donjayamanne.githistory"
 vscode "eamodio.gitlens"
 vscode "fallenmax.mithril-emmet"
-vscode "github.copilot"
-vscode "github.copilot-chat"
 vscode "github.github-vscode-theme"
 vscode "henriblancke.vscode-dbt-formatter"
-vscode "innoverio.vscode-dbt-power-user"
 vscode "kevinrose.vsc-python-indent"
+vscode "mechatroner.rainbow-csv"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
 vscode "ms-python.black-formatter"
