@@ -191,19 +191,6 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 # Disable App Nap system-wide
 defaults write NSGlobalDomain NSAppSleepDisabled -bool true
 
-###############################################################################
-# SAFARI & WEB SETTINGS (Optional)
-###############################################################################
-
-echo "🌐 Configuring Safari..."
-
-# Enable the Develop menu and the Web Inspector in Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-
-# Add a context menu item for showing the Web Inspector in web views
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 ###############################################################################
 # ACTIVITY MONITOR
@@ -367,7 +354,6 @@ for app in "Activity Monitor" \
     "ControlCenter" \
     "Dock" \
     "Finder" \
-    "Safari" \
     "SystemUIServer"; do
     killall "${app}" &> /dev/null
 done
@@ -383,7 +369,6 @@ echo "   • Disabled auto-correct, capitalization, and smart quotes"
 echo "   • Enabled hidden files and path bar in Finder"
 echo "   • Configured keyboard repeat rates"
 echo "   • Optimized screen capture settings"
-echo "   • Enhanced Safari developer tools"
 echo "   • Improved Activity Monitor defaults"
 echo ""
 echo "🔋 Power Management:"
