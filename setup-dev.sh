@@ -215,14 +215,31 @@ echo "🔑 Setting up SSH keys..."
 SSH_KEY_PATH="$HOME/.ssh/id_ed25519"
 
 if [ ! -f "$SSH_KEY_PATH" ]; then
-    # Keep prompting until we get an email
-    while true; do
-        read -p "Enter your email for SSH key (required): " email
-        if [ -n "$email" ]; then
-            break
+    # Check if running interactively
+    if [ -t 0 ]; then
+        # Keep prompting until we get an email
+        while true; do
+            echo -n "Enter your email for SSH key (required): "
+            read email
+            if [ -n "$email" ]; then
+                break
+            fi
+            print_warning "Email is required for SSH key generation. Please try again."
+        done
+    else
+        print_error "Script is not running interactively. Please run with:"
+        print_error "bash -i setup-dev.sh"
+        print_error "Or set EMAIL environment variable:"
+        print_error "EMAIL=your@email.com ./setup-dev.sh"
+        
+        # Check if EMAIL env var is set
+        if [ -n "$EMAIL" ]; then
+            email="$EMAIL"
+            print_status "Using EMAIL from environment: $email"
+        else
+            exit 1
         fi
-        print_warning "Email is required for SSH key generation. Please try again."
-    done
+    fi
     
     print_status "Generating SSH key..."
     ssh-keygen -t ed25519 -C "$email" -f "$SSH_KEY_PATH" -N ""
