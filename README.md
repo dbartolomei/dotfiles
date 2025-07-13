@@ -5,7 +5,7 @@ My fresh macOS developer setup.
 ## Quick Start
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/bootstrap.sh | bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/bootstrap.sh)"
 ```
 
 ## What it does
