@@ -1,7 +1,3 @@
-# Taps
-tap "homebrew/bundle"
-tap "homebrew/services"
-
 # Core Tools & Utilities
 brew "coreutils"
 brew "curl"
