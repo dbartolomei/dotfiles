@@ -1,86 +1,100 @@
+# Taps
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "humansignal/tap"
-brew "xz"
-brew "openssl@3"
-brew "grpc"
-brew "python@3.12"
-brew "asitop"
-brew "awscli"
-brew "bat"
-brew "gettext"
+
+# Core Tools & Utilities
 brew "coreutils"
 brew "curl"
-brew "dockutil"
-brew "doctl"
-brew "duckdb"
-brew "unbound"
-brew "gnutls"
-brew "harfbuzz"
-brew "libmicrohttpd"
-brew "ffmpeg"
-brew "fzf"
+brew "wget"
+brew "openssl@3"
 brew "gnupg"
-brew "gpgme"
-brew "libpq", link: true
-brew "poppler"
-brew "git"
-brew "huggingface-cli"
-brew "llama.cpp"
+brew "xz"
+brew "zlib"
+
+# Shell & Terminal
+brew "zsh"
+brew "tmux"
+brew "fzf"
+brew "z"
+brew "bat"
+brew "ripgrep"
+brew "tree"
+brew "jq"
+brew "htop"
 brew "mactop"
-brew "nmap"
-brew "node"
-brew "pandoc"
-brew "pipx"
-brew "pre-commit"
+brew "asitop"
+
+# Development Tools
+brew "git"
+brew "gh"
+brew "vim"
 brew "pyenv"
 brew "pyenv-virtualenv"
-brew "tmux"
-brew "vim"
-brew "wget"
-brew "yarn"
-brew "z"
-brew "zlib"
-brew "zsh"
-cask "brave-browser", args: { appdir: "/Applications" }
-cask "cyberduck", args: { appdir: "/Applications" }
-cask "expressvpn", args: { appdir: "/Applications" }
-cask "lunar", args: { appdir: "/Applications" }
-cask "medis", args: { appdir: "/Applications" }
-cask "ngrok", args: { appdir: "/Applications" }
-cask "notion", args: { appdir: "/Applications" }
-cask "obsidian", args: { appdir: "/Applications" }
-cask "orbstack", args: { appdir: "/Applications" }
-cask "pandora", args: { appdir: "/Applications" }
-cask "postman", args: { appdir: "/Applications" }
-cask "iterm2", args: { appdir: "/Applications" }
-cask "slack", args: { appdir: "/Applications" }
-cask "spotify", args: { appdir: "/Applications" }
-cask "visual-studio-code", args: { appdir: "/Applications" }
-cask "zoom", args: { appdir: "/Applications" }
-vscode "bastienboutonnet.vscode-dbt"
-vscode "bradlc.vscode-tailwindcss"
-vscode "csstools.postcss"
-vscode "donjayamanne.githistory"
-vscode "eamodio.gitlens"
-vscode "fallenmax.mithril-emmet"
+brew "pipx"
+brew "pre-commit"
+brew "dockutil"
+
+# Cloud & DevOps
+brew "awscli"
+brew "doctl"
+
+# Database & Data Tools
+brew "libpq", link: true
+brew "duckdb"
+brew "pandoc"
+
+# AI/ML Tools
+brew "huggingface-cli"
+brew "llama.cpp"
+
+# Media & Graphics
+brew "ffmpeg"
+brew "poppler"
+
+# Network Tools
+brew "nmap"
+
+# Development Applications
+cask "iterm2"
+cask "visual-studio-code"
+cask "postman"
+cask "orbstack"
+cask "ngrok"
+
+# Browsers
+cask "brave-browser"
+
+# Communication
+cask "slack"
+cask "zoom"
+
+# Productivity
+cask "notion"
+cask "obsidian"
+
+# Utilities
+cask "lunar"
+cask "cyberduck"
+cask "medis"
+cask "expressvpn"
+
+# Entertainment
+cask "spotify"
+cask "pandora"
+
+# VS Code Extensions
 vscode "github.github-vscode-theme"
-vscode "henriblancke.vscode-dbt-formatter"
-vscode "kevinrose.vsc-python-indent"
-vscode "mechatroner.rainbow-csv"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
-vscode "ms-python.black-formatter"
-vscode "ms-python.debugpy"
+vscode "eamodio.gitlens"
+vscode "donjayamanne.githistory"
 vscode "ms-python.python"
 vscode "ms-python.vscode-pylance"
+vscode "ms-python.black-formatter"
+vscode "ms-python.debugpy"
 vscode "ms-toolsai.jupyter"
 vscode "ms-toolsai.jupyter-keymap"
 vscode "ms-toolsai.jupyter-renderers"
-vscode "ms-toolsai.vscode-jupyter-cell-tags"
-vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode-remote.remote-containers"
-vscode "ms-vscode.live-server"
-vscode "njpwerner.autodocstring"
 vscode "redhat.vscode-yaml"
-vscode "samuelcolvin.jinjahtml"
+vscode "bradlc.vscode-tailwindcss"
+vscode "njpwerner.autodocstring"
