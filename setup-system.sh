@@ -170,30 +170,16 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 
 echo "🌟 Configuring Display Settings..."
 
-# Disable automatic brightness adjustment
-sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false
+# Note: True Tone and automatic brightness settings require modifying system plists
+# that are protected and may require restart. These settings are better configured
+# manually in System Settings > Displays for reliability.
 
-# Disable True Tone on all displays
-defaults write com.apple.CoreBrightness CBColorAdaptationEnabled -bool false
-defaults write com.apple.CoreBrightness CBTrueToneEnabled -bool false
-
-# Enable Night Shift
-defaults write com.apple.CoreBrightness CBBlueReductionStatus -dict \
-    BlueLightReductionAlgoOverride -int 0 \
-    BlueLightReductionDisableScheduleAlertCounter -int 0 \
-    BlueLightReductionSchedule -dict \
-        DayStartHour -int 7 \
-        DayStartMinute -int 0 \
-        NightStartHour -int 20 \
-        NightStartMinute -int 0 \
-    BlueReductionEnabled -int 1 \
-    BlueReductionMode -int 1 \
-    BlueReductionSunScheduleAllowed -bool true
-
-# Set Night Shift schedule (8 PM to 7 AM)
-defaults write com.apple.CoreBrightness BlueLightReductionSchedule -dict \
-    BlueLightReductionEnabledForXDisplay -bool true \
-    BlueLightReductionMode -int 2
+echo "⚠️  Please manually configure in System Settings > Displays:"
+echo "   - Uncheck 'Automatically adjust brightness'"
+echo "   - Uncheck 'True Tone'"
+echo ""
+echo "   Also check System Settings > Battery:"
+echo "   - Uncheck 'Slightly dim the display on battery'"
 
 ###############################################################################
 # POWER MANAGEMENT SETTINGS
@@ -409,9 +395,8 @@ echo "   • Optimized screen capture settings"
 echo "   • Improved Activity Monitor defaults"
 echo ""
 echo "🌟 Display Settings:"
-echo "   • Disabled automatic brightness adjustment"
-echo "   • Disabled True Tone"
-echo "   • Enabled Night Shift (8 PM to 7 AM)"
+echo "   • Manual configuration required for True Tone & auto brightness"
+echo "   • See System Settings > Displays to complete setup"
 echo ""
 echo "🔋 Power Management:"
 echo "   • Disabled sleep on battery power"
