@@ -207,37 +207,41 @@ echo "🔑 Setting up SSH keys..."
 SSH_KEY_PATH="$HOME/.ssh/id_ed25519"
 
 if [ ! -f "$SSH_KEY_PATH" ]; then
-    read -p "Enter your email for SSH key: " email
+    # Keep prompting until we get an email
+    while true; do
+        read -p "Enter your email for SSH key (required): " email
+        if [ -n "$email" ]; then
+            break
+        fi
+        print_warning "Email is required for SSH key generation. Please try again."
+    done
     
-    if [ -n "$email" ]; then
-        print_status "Generating SSH key..."
-        ssh-keygen -t ed25519 -C "$email" -f "$SSH_KEY_PATH" -N ""
-        
-        # Start ssh-agent and add key
-        eval "$(ssh-agent -s)"
-        ssh-add "$SSH_KEY_PATH"
-        
-        # Add to keychain
-        ssh-add --apple-use-keychain "$SSH_KEY_PATH"
-        
-        # Create SSH config
-        cat > ~/.ssh/config << EOF
+    print_status "Generating SSH key..."
+    ssh-keygen -t ed25519 -C "$email" -f "$SSH_KEY_PATH" -N ""
+    
+    # Start ssh-agent and add key
+    eval "$(ssh-agent -s)"
+    ssh-add "$SSH_KEY_PATH"
+    
+    # Add to keychain
+    ssh-add --apple-use-keychain "$SSH_KEY_PATH"
+    
+    # Create SSH config
+    cat > ~/.ssh/config << EOF
 Host *
   AddKeysToAgent yes
   UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 EOF
-        
-        print_status "SSH key generated!"
-        print_warning "Public key (copy this to GitHub/GitLab):"
-        echo ""
-        cat "$SSH_KEY_PATH.pub"
-        echo ""
-        print_warning "The public key has been copied to clipboard!"
-        pbcopy < "$SSH_KEY_PATH.pub"
-    else
-        print_warning "Skipping SSH key generation (no email provided)"
-    fi
+    
+    print_status "SSH key generated!"
+    print_warning "Public key (copy this to GitHub):"
+    echo ""
+    cat "$SSH_KEY_PATH.pub"
+    echo ""
+    print_warning "The public key has been copied to clipboard!"
+    print_warning "Add it to GitHub: https://github.com/settings/ssh/new"
+    pbcopy < "$SSH_KEY_PATH.pub"
 else
     print_status "SSH key already exists!"
 fi
@@ -273,6 +277,9 @@ pip install virtualenv
 
 # Setup pipx PATH (pipx is installed via Homebrew)
 pipx ensurepath
+
+# Source the updated PATH for current session
+export PATH="$HOME/.local/bin:$PATH"
 
 # Install useful Python tools globally via pipx
 print_status "Installing Python development tools via pipx..."
