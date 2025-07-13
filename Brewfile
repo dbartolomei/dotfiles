@@ -57,6 +57,9 @@ cask "postman"
 cask "orbstack"
 cask "ngrok"
 
+# Fonts
+cask "font-meslo-lg-nerd-font"
+
 # Browsers
 cask "brave-browser"
 

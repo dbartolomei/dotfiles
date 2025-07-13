@@ -91,6 +91,14 @@ brew bundle --file="$BREWFILE_PATH"
 
 print_status "All applications and tools installed from Brewfile!"
 
+# Configure iTerm2 to use Nerd Font
+if [ -d "/Applications/iTerm.app" ]; then
+    print_status "Configuring iTerm2 to use MesloLGS NF font..."
+    # Set the font in iTerm2 preferences
+    /usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Normal Font' 'MesloLGS-NF-Regular 12'" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null || true
+    /usr/libexec/PlistBuddy -c "Set :'New Bookmarks':0:'Non Ascii Font' 'MesloLGS-NF-Regular 12'" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null || true
+fi
+
 ###############################################################################
 # OH MY ZSH INSTALLATION & CONFIGURATION
 ###############################################################################
