@@ -26,7 +26,7 @@ echo "🎯 Running system configuration..."
 
 echo ""
 echo "🛠️  Running development environment setup..."
-./setup-dev.sh
+bash -i setup-dev.sh
 
 echo ""
 echo "✅ Bootstrap complete!"
