@@ -362,16 +362,18 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 echo "🔄 Applying changes..."
 
-# Kill affected applications
+# Kill affected applications (except Terminal to avoid breaking the script)
 for app in "Activity Monitor" \
     "ControlCenter" \
     "Dock" \
     "Finder" \
     "Safari" \
-    "SystemUIServer" \
-    "Terminal"; do
+    "SystemUIServer"; do
     killall "${app}" &> /dev/null
 done
+
+# Note: Terminal is not restarted to avoid interrupting the running script
+print_warning "Restart Terminal manually to see all changes take effect"
 
 echo "✅ macOS system configuration complete!"
 echo ""
