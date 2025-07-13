@@ -165,6 +165,37 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 
 ###############################################################################
+# DISPLAY SETTINGS
+###############################################################################
+
+echo "🌟 Configuring Display Settings..."
+
+# Disable automatic brightness adjustment
+sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool false
+
+# Disable True Tone on all displays
+defaults write com.apple.CoreBrightness CBColorAdaptationEnabled -bool false
+defaults write com.apple.CoreBrightness CBTrueToneEnabled -bool false
+
+# Enable Night Shift
+defaults write com.apple.CoreBrightness CBBlueReductionStatus -dict \
+    BlueLightReductionAlgoOverride -int 0 \
+    BlueLightReductionDisableScheduleAlertCounter -int 0 \
+    BlueLightReductionSchedule -dict \
+        DayStartHour -int 7 \
+        DayStartMinute -int 0 \
+        NightStartHour -int 20 \
+        NightStartMinute -int 0 \
+    BlueReductionEnabled -int 1 \
+    BlueReductionMode -int 1 \
+    BlueReductionSunScheduleAllowed -bool true
+
+# Set Night Shift schedule (8 PM to 7 AM)
+defaults write com.apple.CoreBrightness BlueLightReductionSchedule -dict \
+    BlueLightReductionEnabledForXDisplay -bool true \
+    BlueLightReductionMode -int 2
+
+###############################################################################
 # POWER MANAGEMENT SETTINGS
 ###############################################################################
 
@@ -376,6 +407,11 @@ echo "   • Enabled hidden files and path bar in Finder"
 echo "   • Configured keyboard repeat rates"
 echo "   • Optimized screen capture settings"
 echo "   • Improved Activity Monitor defaults"
+echo ""
+echo "🌟 Display Settings:"
+echo "   • Disabled automatic brightness adjustment"
+echo "   • Disabled True Tone"
+echo "   • Enabled Night Shift (8 PM to 7 AM)"
 echo ""
 echo "🔋 Power Management:"
 echo "   • Disabled sleep on battery power"
