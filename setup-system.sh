@@ -62,6 +62,9 @@ defaults write com.apple.dock expose-group-by-app -bool true
 # Remove margins between tiled windows (macOS Sequoia)
 defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
 
+# Disable "click desktop to show desktop" feature (macOS Sonoma+)
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
 ###############################################################################
 # FINDER SETTINGS
 ###############################################################################
@@ -380,6 +383,7 @@ echo ""
 echo "💻 Developer Experience:"
 echo "   • Configured Brave browser for development"
 echo "   • Disabled Gatekeeper for unsigned apps"
+echo "   • Disabled click desktop to show desktop"
 echo "   • Disabled .DS_Store on network/USB drives"
 echo "   • Enabled text selection in Quick Look"
 echo "   • Expanded save/print panels by default"

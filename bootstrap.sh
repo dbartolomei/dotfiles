@@ -11,10 +11,11 @@ echo ""
 TEMP_DIR=$(mktemp -d)
 cd "$TEMP_DIR"
 
-# Download the setup scripts
+# Download the setup scripts and Brewfile
 echo "📥 Downloading setup scripts..."
 curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/setup-dev.sh -o setup-dev.sh
 curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/setup-system.sh -o setup-system.sh
+curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/Brewfile -o Brewfile
 
 # Make executable
 chmod +x setup-dev.sh setup-system.sh
