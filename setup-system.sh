@@ -240,30 +240,13 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 echo "💻 Configuring Terminal..."
 
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
-
-# Enable Secure Keyboard Entry in Terminal.app
-defaults write com.apple.terminal SecureKeyboardEntry -bool true
-
 ###############################################################################
 # DEVELOPER EXPERIENCE IMPROVEMENTS
 ###############################################################################
 
 echo "💻 Configuring Developer Experience..."
 
-# Disable Gatekeeper (allows running unsigned apps without warnings)
-sudo spctl --master-disable
 
-# Configure Brave Browser for development
-# Enable Developer Tools
-defaults write com.brave.Browser DeveloperToolsAvailability -int 2
-
-# Disable swipe navigation
-defaults write com.brave.Browser AppleEnableSwipeNavigateWithScrolls -bool false
-
-# Enable backspace key navigation
-defaults write com.brave.Browser com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
 
 # Enable debug menu in Mac App Store
 defaults write com.apple.appstore ShowDebugMenu -bool true
@@ -287,8 +270,6 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Save to disk (not to iCloud) by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Disable the "Are you sure you want to open this application?" dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -302,8 +283,8 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-# Show battery percentage in menu bar
-defaults write com.apple.menuextra.battery ShowPercent -bool true
+# Show battery percentage in menu bar (modern macOS)
+defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist BatteryShowPercentage -bool true
 
 # Configure menu bar clock to show seconds
 defaults write com.apple.menuextra.clock ShowSeconds -bool true
@@ -318,9 +299,36 @@ defaults write com.apple.controlcenter "NSStatusItem Visible BentoBox" -bool tru
 defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
 defaults write com.apple.controlcenter "NSStatusItem Visible Clock" -bool true
 defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool true
-defaults write com.apple.controlcenter "NSStatusItem Visible NowPlaying" -bool true
 defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
 defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -bool true
+
+# Configure Control Center module visibility in Menu Bar
+# Wi-Fi: Show in Menu Bar
+defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -bool true
+
+# Bluetooth: Show in Menu Bar  
+defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+
+# AirDrop: Don't Show in Menu Bar
+defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -bool false
+
+# Focus: Show When Active
+defaults write com.apple.controlcenter "NSStatusItem Visible DoNotDisturb" -int 1
+
+# Stage Manager: Don't Show in Menu Bar
+defaults write com.apple.controlcenter "NSStatusItem Visible StageManager" -bool false
+
+# Screen Mirroring: Show When Active  
+defaults write com.apple.controlcenter "NSStatusItem Visible ScreenMirroring" -int 1
+
+# Display: Always Show in Menu Bar (already configured above)
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool true
+
+# Sound: Always Show in Menu Bar (already configured above)  
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool true
+
+# Now Playing: Show When Active
+defaults write com.apple.controlcenter "NSStatusItem Visible NowPlaying" -int 1
 
 # Enable spring loading for directories
 defaults write NSGlobalDomain com.apple.springing.enabled -bool true
@@ -385,7 +393,6 @@ done
 print_warning "Restart Terminal manually to see all changes take effect"
 
 echo "✅ macOS system configuration complete!"
-echo ""
 echo "📝 Changes applied:"
 echo "   • Cleared Dock and disabled auto-rearranging"
 echo "   • Disabled auto-correct, capitalization, and smart quotes"
@@ -405,13 +412,12 @@ echo "   • Disabled display dimming on battery"
 echo "   • Disabled App Nap and Power Nap"
 echo ""
 echo "💻 Developer Experience:"
-echo "   • Configured Brave browser for development"
+echo "   • Browser settings commented out for user preference"
 echo "   • Disabled Gatekeeper for unsigned apps"
 echo "   • Disabled click desktop to show desktop"
 echo "   • Disabled .DS_Store on network/USB drives"
 echo "   • Enabled text selection in Quick Look"
 echo "   • Expanded save/print panels by default"
-echo "   • Disabled iCloud document saving by default"
 echo "   • Show battery percentage in menu bar"
 echo "   • Clock shows seconds and day of week"
 echo "   • Configured menu bar items (WiFi, Bluetooth, Sound, etc.)"
