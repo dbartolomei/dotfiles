@@ -8,17 +8,17 @@ brew "xz"
 brew "zlib"
 
 # Shell & Terminal
-brew "zsh"
-brew "tmux"
 brew "fzf"
-brew "z"
+brew "zoxide"
 brew "bat"
 brew "ripgrep"
-brew "tree"
 brew "jq"
-brew "htop"
-brew "mactop"
+brew "btop"
 brew "asitop"
+brew "fd"
+brew "eza"
+brew "git-delta"
+brew "direnv"
 
 # Development Tools
 brew "git"
@@ -40,7 +40,6 @@ brew "duckdb"
 brew "pandoc"
 
 # AI/ML Tools
-brew "huggingface-cli"
 brew "llama.cpp"
 
 # Media & Graphics
@@ -52,13 +51,15 @@ brew "nmap"
 
 # Development Applications
 cask "iterm2"
-cask "visual-studio-code"
+cask "cursor"
 cask "postman"
 cask "orbstack"
 cask "ngrok"
 
 # Fonts
+tap "homebrew/cask-fonts"
 cask "font-meslo-lg-nerd-font"
+
 
 # Browsers
 cask "brave-browser"
@@ -69,28 +70,25 @@ cask "zoom"
 
 # Productivity
 cask "notion"
-cask "obsidian"
 
 # Utilities
 cask "lunar"
 cask "cyberduck"
 cask "medis"
 cask "expressvpn"
+cask "tailscale"
 
 # Entertainment
 cask "spotify"
-cask "pandora"
 
 # VS Code/Cursor Extensions
 vscode "anthropic.claude-code"
 vscode "anysphere.pyright"
 vscode "charliermarsh.ruff"
-vscode "codamasoftware.copy-for-ai"
 vscode "hashicorp.terraform"
 vscode "mechatroner.rainbow-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
 vscode "mhutchie.git-graph"
-vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
 vscode "ms-python.vscode-pylance"
