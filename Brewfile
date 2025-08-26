@@ -57,7 +57,7 @@ cask "orbstack"
 cask "ngrok"
 
 # Fonts
-tap "homebrew/cask-fonts"
+# Fonts are now available in homebrew/cask (no separate tap needed)
 cask "font-meslo-lg-nerd-font"
 
 
