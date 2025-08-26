@@ -83,7 +83,7 @@ else
 fi
 
 print_status "Running brew bundle to install all packages..."
-brew bundle --no-lock --file="$BREWFILE_PATH"
+brew bundle --file="$BREWFILE_PATH"
 print_status "All applications and tools installed from Brewfile!"
 
 ###############################################################################

@@ -61,7 +61,7 @@ dwrite com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 ###############################################################################
 echo "📁 Configuring Finder..."
 
-dwrite com.apple.finder AppleShowAllFiles -bool true
+dwrite com.apple.finder AppleShowAllFiles -bool false
 dwrite NSGlobalDomain AppleShowAllExtensions -bool true
 dwrite com.apple.finder ShowPathbar -bool true
 dwrite com.apple.finder ShowStatusBar -bool true
@@ -171,8 +171,8 @@ dwrite NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 dwrite NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 dwrite NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Downloaded app quarantine prompt (security trade-off)
-dwrite com.apple.LaunchServices LSQuarantine -bool false
+# Keep macOS security quarantine enabled for downloaded apps (security best practice)
+# Note: LSQuarantine disabled in previous versions - now keeping security enabled
 
 # Disable automatic emoji substitution
 dwrite com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
