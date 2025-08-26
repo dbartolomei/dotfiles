@@ -16,6 +16,32 @@ NC='\033[0m' # No Color
 print_status() { echo -e "${GREEN}✅ $1${NC}"; }
 print_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
 print_error() { echo -e "${RED}❌ $1${NC}"; }
+print_info() { echo -e "${NC}ℹ️  $1${NC}"; }
+
+# Function to check if command exists
+command_exists() {
+  command -v "$1" &>/dev/null
+}
+
+# Function to retry a command with exponential backoff
+retry_command() {
+  local max_attempts=3
+  local attempt=1
+  local delay=2
+  
+  while [ $attempt -le $max_attempts ]; do
+    if "$@"; then
+      return 0
+    fi
+    print_warning "Command failed (attempt $attempt/$max_attempts). Retrying in ${delay}s..."
+    sleep $delay
+    delay=$((delay * 2))
+    attempt=$((attempt + 1))
+  done
+  
+  print_error "Command failed after $max_attempts attempts: $*"
+  return 1
+}
 
 # Check if running on macOS
 if [[ "$OSTYPE" != "darwin"* ]]; then
@@ -48,9 +74,14 @@ fi
 
 echo "🍺 Installing Homebrew..."
 
-if ! command -v brew &>/dev/null; then
+if ! command_exists brew; then
   print_status "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if retry_command /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+    print_status "Homebrew installed successfully!"
+  else
+    print_error "Failed to install Homebrew. Please install manually."
+    exit 1
+  fi
 
   # Add Homebrew to PATH for current session and persist for future shells
   if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -94,7 +125,11 @@ echo "🐚 Setting up Oh My Zsh..."
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   print_status "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  if retry_command sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+    print_status "Oh My Zsh installed successfully!"
+  else
+    print_error "Failed to install Oh My Zsh"
+  fi
 else
   print_status "Oh My Zsh already installed!"
 fi
@@ -129,7 +164,13 @@ fi
 
 # Create/update .zshrc
 print_status "Configuring .zshrc..."
+# Create a more robust .zshrc that checks for command existence
 cat > ~/.zshrc << 'EOF'
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -155,11 +196,12 @@ export LANG=en_US.UTF-8
 export EDITOR='code'
 
 # Enable zoxide and direnv if available
-if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init zsh)"
-fi
-if command -v direnv >/dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+
+# Enable fzf if available
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
 fi
 
 # Homebrew (Apple Silicon or Intel)
@@ -182,9 +224,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Aliases
-alias ls='eza --icons --group-directories-first'
-alias ll='eza -la --icons --group-directories-first'
-alias lt='eza -T --icons'
+alias ls='eza --group-directories-first'
+alias ll='eza -la --group-directories-first'
+alias lt='eza -T'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias grep='grep --color=auto'
@@ -199,8 +241,9 @@ alias gd='git diff'
 alias gb='git branch'
 alias gco='git checkout'
 
-# Modern replacements
-alias cat='bat'
+# Modern replacements (only if commands exist)
+command -v bat >/dev/null 2>&1 && alias cat='bat'
+command -v eza >/dev/null 2>&1 || { alias ls='ls --color=auto'; alias ll='ls -la'; alias lt='ls -la'; }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -265,8 +308,8 @@ EOF
   cat "$SSH_KEY_PATH.pub"
   echo ""
   pbcopy < "$SSH_KEY_PATH.pub"
-  print_warning "The public key has been copied to clipboard!"
-  print_warning "Add it to GitHub: https://github.com/settings/ssh/new"
+  print_info "The public key has been copied to clipboard!"
+  print_info "Add it to GitHub: https://github.com/settings/ssh/new"
 else
   print_status "SSH key already exists!"
 fi
@@ -290,9 +333,14 @@ PYTHON_LATEST="$(pyenv install --list | grep -E '^\s*3\.[0-9]+\.[0-9]+$' | grep 
 
 if [ -n "${PYTHON_LATEST:-}" ]; then
   print_status "Installing Python $PYTHON_LATEST as global default..."
-  pyenv install "$PYTHON_LATEST" --skip-existing
-  pyenv global "$PYTHON_LATEST"
-  print_status "Set Python $PYTHON_LATEST as global default"
+  if pyenv install "$PYTHON_LATEST" --skip-existing; then
+    pyenv global "$PYTHON_LATEST"
+    print_status "Set Python $PYTHON_LATEST as global default"
+  else
+    print_warning "Failed to install Python $PYTHON_LATEST, keeping existing version"
+  fi
+else
+  print_warning "Could not determine latest Python version to install"
 fi
 
 # Install essential Python packages globally
@@ -301,7 +349,7 @@ python -m pip install --upgrade pip
 python -m pip install virtualenv
 
 # Setup pipx PATH (pipx is installed via Homebrew)
-if command -v pipx &>/dev/null; then
+if command_exists pipx; then
   pipx ensurepath || true
   # Source the updated PATH for current session
   export PATH="$HOME/.local/bin:$PATH"
@@ -451,7 +499,9 @@ echo "🟢 Installing Node Version Manager (nvm)..."
 
 if [ ! -d "$HOME/.nvm" ]; then
   print_status "Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  # Fetch the latest nvm install script dynamically
+  NVM_INSTALL_URL="https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh"
+  curl -o- "$NVM_INSTALL_URL" | bash
 
   # Add nvm to current session
   export NVM_DIR="$HOME/.nvm"
@@ -482,15 +532,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # Install Claude Code via npm
-if command -v npm &>/dev/null; then
+if command_exists npm; then
   print_status "Installing Claude Code CLI..."
-  npm install -g @anthropic-ai/claude-code || true
-
-  if command -v claude &>/dev/null || command -v claude-code &>/dev/null; then
-    print_status "Claude Code installed successfully!"
-    print_warning "Authenticate by running: claude (or: claude-code auth)"
-  else
-    print_warning "Claude Code installation may have failed. Try running: npm install -g @anthropic-ai/claude-code"
+  if retry_command npm install -g @anthropic-ai/claude-code; then
+    if command_exists claude || command_exists claude-code; then
+      print_status "Claude Code installed successfully!"
+      print_info "Authenticate by running: claude (or: claude-code auth)"
+    else
+      print_warning "Claude Code installation may have failed. Try running: npm install -g @anthropic-ai/claude-code"
+    fi
   fi
 else
   print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
@@ -506,15 +556,15 @@ echo "🔷 Installing Gemini CLI..."
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-if command -v npm &>/dev/null; then
+if command_exists npm; then
   print_status "Installing Gemini CLI..."
-  npm install -g @google/gemini-cli || true
-
-  if command -v gemini &>/dev/null; then
-    print_status "Gemini CLI installed successfully!"
-    print_warning "Authenticate by running: gemini auth login (or just 'gemini' to start)"
-  else
-    print_warning "Gemini CLI installation may have failed. Try: npm install -g @google/gemini-cli"
+  if retry_command npm install -g @google/gemini-cli; then
+    if command_exists gemini; then
+      print_status "Gemini CLI installed successfully!"
+      print_info "Authenticate by running: gemini auth login (or just 'gemini' to start)"
+    else
+      print_warning "Gemini CLI installation may have failed. Try: npm install -g @google/gemini-cli"
+    fi
   fi
 else
   print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
