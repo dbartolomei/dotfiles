@@ -166,7 +166,6 @@ cask "pandora"
 # ==============================================================================
 # VS Code Extensions
 # ==============================================================================
-vscode "anthropic.claude-code"
 vscode "charliermarsh.ruff"
 vscode "hashicorp.terraform"
 vscode "mechatroner.rainbow-csv"
