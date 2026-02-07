@@ -547,6 +547,30 @@ else
 fi
 
 ###############################################################################
+# CODEX CLI INSTALLATION
+###############################################################################
+
+echo "🧠 Installing OpenAI Codex CLI..."
+
+# Ensure nvm is loaded
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+if command -v npm &>/dev/null; then
+  print_status "Installing OpenAI Codex CLI..."
+  npm install -g @openai/codex || true
+
+  if command -v codex &>/dev/null; then
+    print_status "Codex CLI installed successfully!"
+    print_warning "Authenticate by running: codex"
+  else
+    print_warning "Codex CLI installation may have failed. Try: npm install -g @openai/codex"
+  fi
+else
+  print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
+fi
+
+###############################################################################
 # GEMINI CLI INSTALLATION
 ###############################################################################
 
@@ -586,6 +610,7 @@ echo "   🔑 SSH key generated (if email provided)"
 echo "   ⚙️  Git configuration with global gitignore"
 echo "   🐳 Orbstack for Docker containers"
 echo "   🤖 Claude Code CLI installed"
+echo "   🧠 OpenAI Codex CLI installed"
 echo "   🔷 Gemini CLI installed"
 echo ""
 echo "🔄 Next steps:"
@@ -593,7 +618,8 @@ echo "   1. Open a new terminal or 'source ~/.zshrc' to load shell updates"
 echo "   2. Run 'p10k configure' to set up your prompt"
 echo "   3. Add your SSH public key to GitHub/GitLab/etc."
 echo "   4. Authenticate Claude Code: run 'claude' (or 'claude-code auth')"
-echo "   5. Authenticate Gemini CLI: 'gemini auth login'"
+echo "   5. Authenticate Codex: run 'codex'"
+echo "   6. Authenticate Gemini CLI: 'gemini auth login'"
 echo ""
 echo "🐍 Python environment commands:"
 echo "   'pyenv versions'        - List installed Python versions"

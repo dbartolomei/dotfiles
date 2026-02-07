@@ -30,10 +30,6 @@ echo "📱 Configuring Dock..."
 dwrite com.apple.dock persistent-apps -array
 dwrite com.apple.dock persistent-others -array
 
-# Add Launchpad to Dock
-dwrite com.apple.dock persistent-apps -array-add \
-  '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/System/Applications/Launchpad.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-
 # Keep Downloads as the only folder in Dock (Others section)
 dwrite com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${HOME}/Downloads</string><key>_CFURLStringType</key><integer>0</integer></dict><key>arrangement</key><integer>2</integer><key>displayas</key><integer>1</integer><key>showas</key><integer>1</integer></dict><key>tile-type</key><string>directory-tile</string></dict>"
 
