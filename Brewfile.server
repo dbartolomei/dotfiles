@@ -1,0 +1,83 @@
+# Brewfile.server - Stripped-down for headless/server Mac Minis
+# Use `brew bundle --file=Brewfile.server` to install
+
+# ==============================================================================
+# Core Tools & Utilities
+# ==============================================================================
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Internet file retriever
+brew "wget"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# General-purpose lossless data-compression library
+brew "zlib"
+
+# ==============================================================================
+# Shell & Terminal
+# ==============================================================================
+# UNIX shell (command interpreter)
+brew "zsh"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Apple Silicon Monitor Top written in Go Lang
+brew "mactop"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Modern, maintained replacement for ls
+brew "eza"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Terminal multiplexer
+brew "tmux"
+
+# ==============================================================================
+# Development Tools
+# ==============================================================================
+# Distributed revision control system
+brew "git"
+# GitHub command-line tool
+brew "gh"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Python version management
+brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
+
+# ==============================================================================
+# Network Tools
+# ==============================================================================
+# Port scanning utility for large networks
+brew "nmap"
+
+# ==============================================================================
+# Fonts (needed for Powerlevel10k in SSH sessions)
+# ==============================================================================
+cask "font-meslo-lg-nerd-font"
+
+# ==============================================================================
+# Container Runtime
+# ==============================================================================
+# Replacement for Docker Desktop
+cask "orbstack"

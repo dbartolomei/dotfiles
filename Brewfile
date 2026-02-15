@@ -41,6 +41,10 @@ brew "fd"
 brew "eza"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Tracks most-used directories to make cd smarter
+brew "z"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Display directories as trees (with optional color/HTML output)
@@ -69,8 +73,16 @@ brew "pipx"
 brew "pre-commit"
 # Tool for managing dock items
 brew "dockutil"
-# Tool to build, change, and version infrastructure
-brew "terraform"
+# OpenTofu - open source infrastructure as code tool
+brew "opentofu"
+
+# ==============================================================================
+# AI & LLM Tools
+# ==============================================================================
+# Get up and running with large language models
+brew "ollama"
+# LLM inference in C/C++
+brew "llama.cpp"
 
 # ==============================================================================
 # Cloud & DevOps
@@ -99,12 +111,10 @@ brew "nmap"
 # ==============================================================================
 # Development Applications
 # ==============================================================================
-# Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
-# Write, edit, and chat about your code with AI
-cask "cursor"
 # High-performance, multiplayer code editor
 cask "zed"
+# Open-source code editor
+cask "visual-studio-code"
 # Collaboration platform for API development
 cask "postman"
 # Replacement for Docker Desktop
@@ -138,8 +148,6 @@ cask "loom"
 # ==============================================================================
 # Productivity
 # ==============================================================================
-# App to write, plan, collaborate, and get organised
-cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 
@@ -150,8 +158,12 @@ cask "obsidian"
 cask "1password"
 # Adaptive brightness for external displays
 cask "lunar"
+# Window manager tool for moving and zooming windows
+cask "moom"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
 
 # ==============================================================================
 # Entertainment
@@ -167,7 +179,6 @@ cask "pandora"
 # VS Code Extensions
 # ==============================================================================
 vscode "charliermarsh.ruff"
-vscode "hashicorp.terraform"
 vscode "mechatroner.rainbow-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
 vscode "mhutchie.git-graph"
