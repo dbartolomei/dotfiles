@@ -226,6 +226,28 @@ dwrite com.apple.SoftwareUpdate AutomaticDownload -int 1
 dwrite com.apple.commerce AutoUpdate -bool true
 
 ###############################################################################
+# TERMINAL.APP
+###############################################################################
+echo "🖥️  Configuring Terminal.app..."
+
+# Set Menlo as the default font (requires Terminal.app to be running briefly)
+osascript -e 'tell application "Terminal" to set font name of default settings to "Menlo-Regular"' 2>/dev/null || true
+osascript -e 'tell application "Terminal" to set font size of default settings to 12' 2>/dev/null || true
+
+###############################################################################
+# SHARING SERVICES
+###############################################################################
+echo "🔗 Configuring Sharing Services..."
+
+# Enable Screen Sharing
+sudo defaults write /var/db/launchd.db/com.apple.launchd/overrides.plist com.apple.screensharing -dict Disabled -bool false 2>/dev/null || true
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null || true
+
+# Enable File Sharing (SMB)
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server.plist EnabledServices -array disk 2>/dev/null || true
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.smbd.plist 2>/dev/null || true
+
+###############################################################################
 # FINISHING UP
 ###############################################################################
 echo "🔄 Applying changes..."
@@ -244,4 +266,6 @@ echo "🔋 Power:"
 echo "   • No sleep on battery; display 30m on battery"
 echo "   • No sleep on AC; display never sleeps on AC (adjust if undesired)"
 echo "💻 Developer experience: Quick Look text, expanded panels, .DS_Store off on network/USB"
+echo "🖥️  Terminal.app: Menlo-Regular 12pt as default font"
+echo "🔗 Sharing: Screen Sharing and File Sharing enabled for authenticated users"
 echo "🔔 Restart Terminal manually to see all changes take effect"

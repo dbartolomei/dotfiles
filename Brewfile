@@ -122,6 +122,9 @@ cask "orbstack"
 # Tools for building Android applications
 cask "android-studio"
 
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+
 # ==============================================================================
 # Fonts
 # ==============================================================================
