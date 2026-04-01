@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Task",
+      "TodoWrite"
+    ],
+    "deny": [],
+    "ask": [
+      "Bash(git push origin main*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(gh release *)"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Code needs your attention\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "claude-opus-4-5-migration@claude-code-plugins": true,
+    "feature-dev@claude-code-plugins": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
+}
