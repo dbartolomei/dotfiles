@@ -1,4 +1,4 @@
-# Brewfile - Frozen 2026-02-06
+# Brewfile - Frozen 2026-03-31
 # Use `brew bundle` to install all packages
 # Use `brew bundle dump --force --describe` to update this file
 
@@ -31,20 +31,14 @@ brew "fzf"
 brew "zoxide"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Search tool like grep and The Silver Searcher
-brew "ripgrep"
-# Apple Silicon Monitor Top written in Go Lang
-brew "mactop"
-# Simple, fast and user-friendly alternative to find
-brew "fd"
 # Modern, maintained replacement for ls
 brew "eza"
+# Apple Silicon Monitor Top written in Go Lang
+brew "mactop"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Tracks most-used directories to make cd smarter
-brew "z"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Display directories as trees (with optional color/HTML output)
@@ -59,10 +53,6 @@ brew "tmux"
 brew "git"
 # GitHub command-line tool
 brew "gh"
-# Simple terminal UI for git commands
-brew "lazygit"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
 # Python version management
 brew "pyenv"
 # Pyenv plugin to manage virtualenv
@@ -73,16 +63,12 @@ brew "pipx"
 brew "pre-commit"
 # Tool for managing dock items
 brew "dockutil"
+# Configurable static site generator
+brew "hugo"
 # OpenTofu - open source infrastructure as code tool
 brew "opentofu"
-
-# ==============================================================================
-# AI & LLM Tools
-# ==============================================================================
-# Get up and running with large language models
-brew "ollama"
-# LLM inference in C/C++
-brew "llama.cpp"
+# Object-relational database system
+brew "postgresql@18", link: true
 
 # ==============================================================================
 # Cloud & DevOps
@@ -95,14 +81,6 @@ brew "doctl"
 brew "stripe/stripe-cli/stripe"
 
 # ==============================================================================
-# Media & Graphics
-# ==============================================================================
-# Play, record, convert, and stream select audio and video codecs
-brew "ffmpeg"
-# PDF rendering library (based on the xpdf-3.0 code base)
-brew "poppler"
-
-# ==============================================================================
 # Network Tools
 # ==============================================================================
 # Port scanning utility for large networks
@@ -111,6 +89,10 @@ brew "nmap"
 # ==============================================================================
 # Development Applications
 # ==============================================================================
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
 # High-performance, multiplayer code editor
 cask "zed"
 # Open-source code editor
@@ -119,22 +101,11 @@ cask "visual-studio-code"
 cask "postman"
 # Replacement for Docker Desktop
 cask "orbstack"
-# Tools for building Android applications
-cask "android-studio"
 
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
-
-# ==============================================================================
-# Fonts
-# ==============================================================================
-cask "font-meslo-lg-nerd-font"
 
 # ==============================================================================
 # Browsers
 # ==============================================================================
-# Web browser focusing on privacy
-cask "brave-browser"
 # Web browser
 cask "google-chrome"
 
@@ -165,8 +136,6 @@ cask "lunar"
 cask "moom"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
-# Send macOS User Notifications from the command-line
-brew "terminal-notifier"
 
 # ==============================================================================
 # Entertainment
@@ -181,10 +150,10 @@ cask "pandora"
 # ==============================================================================
 # VS Code Extensions
 # ==============================================================================
+vscode "anthropic.claude-code"
 vscode "charliermarsh.ruff"
 vscode "mechatroner.rainbow-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
-vscode "mhutchie.git-graph"
 vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
@@ -192,4 +161,6 @@ vscode "ms-python.python"
 vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
 vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode.remote-explorer"
 vscode "waderyan.gitblame"
