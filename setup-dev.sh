@@ -522,76 +522,78 @@ else
 fi
 
 ###############################################################################
-# CLAUDE CODE INSTALLATION
+# AI CLI TOOLS (installed via npm, not Homebrew)
 ###############################################################################
-
-echo "🤖 Installing Claude Code..."
 
 # Ensure nvm is loaded
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-# Install Claude Code via npm
 if command_exists npm; then
+
+  # Claude Code
   print_status "Installing Claude Code CLI..."
   if retry_command npm install -g @anthropic-ai/claude-code; then
     if command_exists claude || command_exists claude-code; then
       print_status "Claude Code installed successfully!"
-      print_info "Authenticate by running: claude (or: claude-code auth)"
+      print_info "Authenticate by running: claude"
     else
-      print_warning "Claude Code installation may have failed. Try running: npm install -g @anthropic-ai/claude-code"
+      print_warning "Claude Code installation may have failed. Try: npm install -g @anthropic-ai/claude-code"
     fi
   fi
-else
-  print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
-fi
 
-###############################################################################
-# CODEX CLI INSTALLATION
-###############################################################################
-
-echo "🧠 Installing OpenAI Codex CLI..."
-
-# Ensure nvm is loaded
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-if command -v npm &>/dev/null; then
+  # OpenAI Codex
   print_status "Installing OpenAI Codex CLI..."
-  npm install -g @openai/codex || true
-
-  if command -v codex &>/dev/null; then
-    print_status "Codex CLI installed successfully!"
-    print_warning "Authenticate by running: codex"
-  else
-    print_warning "Codex CLI installation may have failed. Try: npm install -g @openai/codex"
+  if retry_command npm install -g @openai/codex; then
+    if command_exists codex; then
+      print_status "Codex CLI installed successfully!"
+      print_info "Authenticate by running: codex"
+    else
+      print_warning "Codex CLI installation may have failed. Try: npm install -g @openai/codex"
+    fi
   fi
-else
-  print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
-fi
 
-###############################################################################
-# GEMINI CLI INSTALLATION
-###############################################################################
-
-echo "🔷 Installing Gemini CLI..."
-
-# Ensure nvm is loaded
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-if command_exists npm; then
+  # Gemini CLI
   print_status "Installing Gemini CLI..."
   if retry_command npm install -g @google/gemini-cli; then
     if command_exists gemini; then
       print_status "Gemini CLI installed successfully!"
-      print_info "Authenticate by running: gemini auth login (or just 'gemini' to start)"
+      print_info "Authenticate by running: gemini"
     else
       print_warning "Gemini CLI installation may have failed. Try: npm install -g @google/gemini-cli"
     fi
   fi
+
 else
-  print_error "npm not found! Please ensure Node.js is installed from Brewfile or via nvm first."
+  print_error "npm not found! Please ensure Node.js is installed via nvm first."
+fi
+
+###############################################################################
+# CLAUDE CODE CONFIGURATION
+###############################################################################
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CLAUDE_DIR="$HOME/.claude"
+
+mkdir -p "$CLAUDE_DIR"
+
+# Copy settings.json and CLAUDE.md from dotfiles
+if [ -f "$DOTFILES_DIR/claude/settings.json" ]; then
+  if [ -f "$CLAUDE_DIR/settings.json" ]; then
+    print_warning "Existing ~/.claude/settings.json found — backing up to settings.json.bak"
+    cp "$CLAUDE_DIR/settings.json" "$CLAUDE_DIR/settings.json.bak"
+  fi
+  cp "$DOTFILES_DIR/claude/settings.json" "$CLAUDE_DIR/settings.json"
+  print_status "Claude Code settings.json installed"
+fi
+
+if [ -f "$DOTFILES_DIR/claude/CLAUDE.md" ]; then
+  if [ -f "$CLAUDE_DIR/CLAUDE.md" ]; then
+    print_warning "Existing ~/.claude/CLAUDE.md found — backing up to CLAUDE.md.bak"
+    cp "$CLAUDE_DIR/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md.bak"
+  fi
+  cp "$DOTFILES_DIR/claude/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+  print_status "Claude Code CLAUDE.md installed"
 fi
 
 ###############################################################################
