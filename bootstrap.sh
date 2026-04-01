@@ -16,6 +16,9 @@ echo "📥 Downloading setup scripts..."
 curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/setup-dev.sh -o setup-dev.sh
 curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/setup-system.sh -o setup-system.sh
 curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/Brewfile -o Brewfile
+mkdir -p claude
+curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/claude/settings.json -o claude/settings.json
+curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/main/claude/CLAUDE.md -o claude/CLAUDE.md
 
 # Make executable
 chmod +x setup-dev.sh setup-system.sh
