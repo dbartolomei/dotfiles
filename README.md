@@ -13,7 +13,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/dbartolomei/dotfiles/mai
 ### Development Environment
 - **Shell**: Zsh + Oh My Zsh + Powerlevel10k theme
 - **Terminal**: Ghostty
-- **Editors**: Cursor, Zed, Neovim
+- **Editors**: VS Code, Zed
 - **Python**: pyenv + latest Python + ruff/poetry via pipx
 - **Node**: nvm + latest LTS Node.js
 - **Containers**: OrbStack (Docker replacement)
@@ -29,10 +29,7 @@ Modern replacements and essentials:
 - `zoxide` - smarter cd
 - `eza` - modern ls
 - `bat` - cat with syntax highlighting
-- `ripgrep` - fast grep
-- `fd` - fast find
 - `fzf` - fuzzy finder
-- `lazygit` - git TUI
 - `git-delta` - better diffs
 
 ### Apps
@@ -47,6 +44,7 @@ Browsers, communication, productivity - see [Brewfile](Brewfile) for full list.
 | `setup-dev.sh` | Development environment setup |
 | `Brewfile` | Homebrew packages and apps |
 | `Brewfile.lock.json` | Frozen package versions |
+| `claude/` | Claude Code global config (settings.json, CLAUDE.md) |
 
 ## Reset Homebrew
 
