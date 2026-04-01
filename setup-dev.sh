@@ -245,6 +245,16 @@ alias gco='git checkout'
 command -v bat >/dev/null 2>&1 && alias cat='bat'
 command -v eza >/dev/null 2>&1 || { alias ls='ls --color=auto'; alias ll='ls -la'; alias lt='ls -la'; }
 
+# Python virtual environment helpers
+alias mkenv='python -m venv'
+alias activate='source ./venv/bin/activate'
+
+# Docker/Orbstack aliases
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 EOF
@@ -343,10 +353,9 @@ else
   print_warning "Could not determine latest Python version to install"
 fi
 
-# Install essential Python packages globally
-print_status "Installing essential Python packages..."
+# Upgrade pip
+print_status "Upgrading pip..."
 python -m pip install --upgrade pip
-python -m pip install virtualenv
 
 # Setup pipx PATH (pipx is installed via Homebrew)
 if command_exists pipx; then
@@ -361,28 +370,6 @@ else
   print_warning "pipx not found. Ensure pipx is installed via Brewfile if you want isolated CLI installs."
 fi
 
-# Add useful shell aliases
-print_status "Adding shell aliases..."
-cat >> ~/.zshrc << 'EOF'
-
-# Python virtual environment helpers
-alias mkenv='python -m venv'
-alias activate='source ./venv/bin/activate'
-alias deactivate='deactivate'
-
-# Pyenv shortcuts
-alias py='python'
-alias py3='python3'
-alias pip='pip'
-alias piplist='pip list'
-alias pipfreeze='pip freeze'
-
-# Docker/Orbstack aliases
-alias d='docker'
-alias dc='docker compose'
-alias dps='docker ps'
-alias dpsa='docker ps -a'
-EOF
 
 ###############################################################################
 # GIT CONFIGURATION
