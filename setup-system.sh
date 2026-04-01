@@ -155,12 +155,6 @@ echo "💻 Configuring Developer Experience..."
 touch "${HOME}/.Trash/.metadata_never_index"
 touch "${HOME}/Downloads/.metadata_never_index"
 
-# Bluetooth audio quality
-dwrite com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
-
-# Quick Look text selection
-dwrite com.apple.finder QLEnableTextSelection -bool true
-
 # Expand common panels
 dwrite NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 dwrite NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
@@ -210,9 +204,6 @@ dwrite com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Archive Utility defaults
 dwrite com.apple.archiveutility ShowExpandedDialogs -bool true
-
-# WebKit developer extras
-dwrite NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # TextEdit defaults
 dwrite com.apple.TextEdit RichText -int 0
